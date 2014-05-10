@@ -16,8 +16,8 @@
 <div id="header">
 	<p><?=$strPageTitle?></p>
 	<div class="lang-switch">
-		<a href="?user_lang=en"><img class="language-icon" src="view/langicons/en.svg" width="32" height="24" alt="English" title="English"></a>
-		<a href="?user_lang=pl"><img class="language-icon" src="view/langicons/pl.svg" width="32" height="24" alt="Polski" title="Polski"></a>
+		<a href="?user_lang=en"><img class="language-icon" src="view/langicons/en.svg" width="32" height="24" alt="en" title="English"></a>
+		<a href="?user_lang=pl"><img class="language-icon" src="view/langicons/pl.svg" width="32" height="24" alt="pl" title="Polski"></a>
 	</div>
 </div>
 <div id="container">

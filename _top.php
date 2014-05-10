@@ -43,7 +43,7 @@
 	require_once './lib/ticks.class.php';
 
 	// include i10n stuff along with L() language function
-	require_once '../lang/_.php';
+	require_once './lang/_.php';
 	
 	// error handling
 	include './lib/fun_error.php';

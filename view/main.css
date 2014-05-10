@@ -33,6 +33,17 @@ body
     margin: 0;
     padding: 5px 70px;
 }
+#header .lang-switch
+{
+	float:right;
+	position: relative;
+	right: .8em;
+	top: -0.5em;
+}
+#header .lang-switch a
+{
+	padding:.5em;
+}
 #container
 {
 	background-color:white;

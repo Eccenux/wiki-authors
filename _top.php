@@ -1,5 +1,5 @@
 <?
-/*!
+/**
 	@file
 	@brief Init file to be included on top
 	
@@ -11,13 +11,13 @@
 	}
 	
 	// parse config file
-	if (function_exists('posix_getuid'))	// on toolserver
+	if (file_exists("./.my.script.cnf"))
 	{
-		$arrUserInfo = posix_getpwuid(posix_getuid());
+		$arrUserInfo['dir'] = './';
 	}
-	else	// this works for me ;-)
+	else
 	{
-		$arrUserInfo['dir'] = '.';
+		$arrUserInfo['dir'] = '../';
 	}
 	$arrMyCnf = parse_ini_file($arrUserInfo['dir'] . "/.my.script.cnf", true);
 

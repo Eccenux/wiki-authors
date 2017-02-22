@@ -21,19 +21,19 @@
 		</tr>
 	</thead>
 	<tbody>
-		<? foreach ($arrAuthors as &$rowStat) { ?>
+		<?php foreach ($arrAuthors as &$rowStat) { ?>
 			<tr>
 				<td>
-					<? if (!empty($rowStat['user_name'])) { ?>
+					<?php if (!empty($rowStat['user_name'])) { ?>
 						<a href="<?=$strPageBaseURL?>User:<?=$rowStat['user_name']?>"><?=strtr($rowStat['user_name'],'_',' ')?></a>
-					<? } else { ?>
+					<?php } else { ?>
 						<i>?</i>
-					<? } ?>
+					<?php } ?>
 				</td>
 				<td><?=$rowStat['edits_num']?></td>
 				<td><?=$rowStat['total_len']?></td>
 			</tr>
-		<? } ?>
+		<?php } ?>
 	</tbody>
 </table>
 

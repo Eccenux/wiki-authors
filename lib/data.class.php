@@ -61,7 +61,7 @@ class cMainData
 		$oTicks->pf_insTick('authors stats');
 		$strSQL = "SELECT rev_actor as actor_id, count(rev_actor) as `edits_num`, sum(rev_len) as `total_len`
 			FROM revision_userindex
-			WHERE rev_page=44895 AND rev_minor_edit=0 AND rev_id<=48610649
+			WHERE rev_page=$vPage AND rev_minor_edit=0 AND rev_id<=$numOldId
 			GROUP BY rev_actor
 			ORDER BY 2 desc, 3 desc
 		";
@@ -87,7 +87,7 @@ class cMainData
 		// merge
 		$oTicks->pf_insTick('authors merge');
 		$arrAuthors = array();
-		for ($i = 0; $i <= count($arrRevAuthors); $i++) {
+		for ($i = 0; $i < count($arrRevAuthors); $i++) {
 			$actor_id = $arrRevAuthors[$i]['actor_id'];
 			if (isset($arrAuthorNames[$actor_id])) {
 				$actor_name = $arrAuthorNames[$actor_id];
@@ -99,7 +99,7 @@ class cMainData
 				'edits_num' => $arrRevAuthors[$i]['edits_num'],
 				'total_len' => $arrRevAuthors[$i]['total_len'],
 			);
-			$arrRevAuthors[$i] = $arr;
+			$arrAuthors[] = $arr;
 		}
 		$oTicks->pf_endTick('authors merge');
 		

@@ -54,14 +54,43 @@ class cMainData
 		}
 
 		// get stats
-		$strSQL = "SELECT a.actor_name as `user_name`, count(rev_actor) as `edits_num`, sum(rev_len) as `total_len`
-			FROM revision r
-			LEFT JOIN actor a ON a.actor_id = r.rev_actor
-			WHERE rev_page=$vPage AND rev_minor_edit=0 AND rev_id<=$numOldId
+		$strSQL = "SELECT rev_actor as actor_id, count(rev_actor) as `edits_num`, sum(rev_len) as `total_len`
+			FROM revision_userindex
+			WHERE rev_page=44895 AND rev_minor_edit=0 AND rev_id<=48610649
 			GROUP BY rev_actor
 			ORDER BY 2 desc, 3 desc
 		";
-		$arrAuthors = $this->pf_fetchAllSQL($strSQL);
+		$arrRevAuthors = $this->pf_fetchAllSQL($strSQL);
+		if (empty($arrRevAuthors)) {
+			return array();
+		}
+
+		// get names
+		$ids = array_column($arrRevAuthors, 'actor_id');
+		$ids = implode(',', $ids);
+		$strSQL = "SELECT actor_id, actor_name as `user_name`
+			FROM actor
+			WHERE actor_id IN ($ids)
+		";
+		// PDO::FETCH_KEY_PAIR (id=>name)
+		$arrAuthorNames = $this->pf_fetchAllSQL($strSQL, PDO::FETCH_KEY_PAIR);
+		
+		// merge
+		$arrAuthors = array();
+		for ($i = 0; $i <= count($arrRevAuthors); $i++) {
+			$actor_id = $arrRevAuthors[$i]['actor_id'];
+			if (isset($arrAuthorNames[$actor_id])) {
+				$actor_name = $arrAuthorNames[$actor_id]
+			} else {
+				$actor_name = "? ($actor_id)";
+			}
+			$arr = array(
+				'user_name' => $actor_name,
+				'edits_num' => $arrRevAuthors[$i]['edits_num'],
+				'total_len' => $arrRevAuthors[$i]['total_len'],
+			);
+			$arrRevAuthors[$i] = $arr;
+		}
 		
 		return $arrAuthors;
 	}

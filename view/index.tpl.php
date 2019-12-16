@@ -1,16 +1,3 @@
-<!--
-<form action="index.php" method="get">
-	<input id="kal_val_godziny"	type="hidden" size="2" />
-	<input id="kal_val_minuty"	type="hidden" size="2" />
-	<input id="kal_val_sekundy"	type="hidden" size="2" />
-		
-	<input id="kal_val_rok"		name="Dy" type="text" size="4" />
-	<input id="kal_val_miesiac"	name="Dm" type="text" size="2" />
-	<input id="kal_val_dzien"	name="Dd" type="text" size="2" />
-
-	<input type="submit" name="submit" />
-</form>
--->
 
 <table>
 	<thead>
@@ -31,7 +18,7 @@
 					<?php } ?>
 				</td>
 				<td><?=$rowStat['edits_num']?></td>
-				<td><?=$rowStat['total_len']?></td>
+				<td><?=number_format($rowStat['total_len'], 0, '', ' ')?></td>
 			</tr>
 		<?php } ?>
 	</tbody>

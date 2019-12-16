@@ -7,7 +7,11 @@
 	// some basic conf and params
 	define ('FALLBACK_LANG', 'en');
 	$strLangDir = dirname(__FILE__);
-	$strUserLangCode = empty($_REQUEST['user_lang']) ? substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2) : $_REQUEST['user_lang'];
+	$strUserLangCode = !empty($_REQUEST['user_lang']) ? $_REQUEST['user_lang'] 
+		: (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,2) 
+		: ''
+		)
+	;
 	
 	// remove any unexpected chars
 	preg_replace('#[^a-zA-Z_\-]+#', '', $strUserLangCode);

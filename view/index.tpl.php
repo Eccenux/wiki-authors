@@ -1,3 +1,4 @@
+<p><a href="<?=$strPageBaseURL?>?oldid=<?=$numOldId?>"><?=L('Page')?></a></p>
 
 <table>
 	<thead>

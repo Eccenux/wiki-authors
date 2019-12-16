@@ -54,10 +54,11 @@ class cMainData
 		}
 
 		// get stats
-		$strSQL = "SELECT rev_user_text as `user_name`, count(rev_user) as `edits_num`, sum(rev_len) as `total_len`
-			FROM revision
+		$strSQL = "SELECT a.actor_name as `user_name`, count(rev_actor) as `edits_num`, sum(rev_len) as `total_len`
+			FROM revision r
+			LEFT JOIN actor a ON a.actor_id = r.rev_actor
 			WHERE rev_page=$vPage AND rev_minor_edit=0 AND rev_id<=$numOldId
-			GROUP BY rev_user
+			GROUP BY rev_actor
 			ORDER BY 2 desc, 3 desc
 		";
 		$arrAuthors = $this->pf_fetchAllSQL($strSQL);

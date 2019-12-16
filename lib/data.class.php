@@ -38,9 +38,12 @@ class cMainData
 	*/
 	public function pf_getPageAuthors($numOldId)
 	{
+		global $oTicks;
+		
 		$numOldId = intval($numOldId);
 
 		// get page id
+		$oTicks->pf_insTick('authors page id');
 		$strSQL = "SELECT rev_page
 			FROM revision
 			WHERE rev_id=$numOldId
@@ -48,12 +51,14 @@ class cMainData
 		
 		$vPage = $this->pf_fetchAllSQL($strSQL, PDO::FETCH_COLUMN);
 		$vPage = implode(",", $vPage);
+		$oTicks->pf_endTick('authors page id');
 		if (empty($vPage))
 		{
 			return array();
 		}
 
 		// get stats
+		$oTicks->pf_insTick('authors stats');
 		$strSQL = "SELECT rev_actor as actor_id, count(rev_actor) as `edits_num`, sum(rev_len) as `total_len`
 			FROM revision_userindex
 			WHERE rev_page=44895 AND rev_minor_edit=0 AND rev_id<=48610649
@@ -61,26 +66,31 @@ class cMainData
 			ORDER BY 2 desc, 3 desc
 		";
 		$arrRevAuthors = $this->pf_fetchAllSQL($strSQL);
+		$oTicks->pf_endTick('authors stats');
 		if (empty($arrRevAuthors)) {
 			return array();
 		}
 
 		// get names
+		$oTicks->pf_insTick('authors names');
 		$ids = array_column($arrRevAuthors, 'actor_id');
 		$ids = implode(',', $ids);
 		$strSQL = "SELECT actor_id, actor_name as `user_name`
 			FROM actor
 			WHERE actor_id IN ($ids)
 		";
+		//die("Przepraszamy");
 		// PDO::FETCH_KEY_PAIR (id=>name)
 		$arrAuthorNames = $this->pf_fetchAllSQL($strSQL, PDO::FETCH_KEY_PAIR);
+		$oTicks->pf_endTick('authors names');
 		
 		// merge
+		$oTicks->pf_insTick('authors merge');
 		$arrAuthors = array();
 		for ($i = 0; $i <= count($arrRevAuthors); $i++) {
 			$actor_id = $arrRevAuthors[$i]['actor_id'];
 			if (isset($arrAuthorNames[$actor_id])) {
-				$actor_name = $arrAuthorNames[$actor_id]
+				$actor_name = $arrAuthorNames[$actor_id];
 			} else {
 				$actor_name = "? ($actor_id)";
 			}
@@ -91,6 +101,7 @@ class cMainData
 			);
 			$arrRevAuthors[$i] = $arr;
 		}
+		$oTicks->pf_endTick('authors merge');
 		
 		return $arrAuthors;
 	}

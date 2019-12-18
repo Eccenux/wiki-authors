@@ -36,7 +36,20 @@ if (empty($numOldId))
 //
 if (empty($strDieMessage))
 {
+	/**/
 	require('./index.getdata.php');
+	/**
+	// quick test
+	$arrAuthors = array();
+	for ($i=0; $i < 10; $i++) { 
+		$arr = array(
+			'user_name' => 'Zenek' . ($i+1),
+			'edits_num' => 123 - ($i*2),
+			'total_len' => 132123,
+		);
+		$arrAuthors[] = $arr;
+	}
+	/**/
 }
 
 //

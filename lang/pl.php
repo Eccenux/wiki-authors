@@ -1,6 +1,7 @@
 <?php
 $arrLang = array(
 	'Author' => 'Autor',
+	'Authors list' => 'Lista autorów',
 	'Page' => 'Strona',
 	'Number of edits' => 'Liczba edycji',
 	'Total length' => 'Zmienionych bajtów',

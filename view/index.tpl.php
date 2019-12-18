@@ -26,3 +26,12 @@
 </table>
 
 <p><?=L('Authors:stats note')?></p>
+
+<?php if (!empty($arrAuthors)) { ?>
+<p><?=L('Authors list')?>: 
+<?php
+	$names = array_column($arrAuthors, 'user_name');
+	echo implode(', ', $names);
+?>.
+</p>
+<?php } ?>

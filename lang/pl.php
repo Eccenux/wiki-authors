@@ -1,5 +1,6 @@
 <?php
 $arrLang = array(
+	'_CODE' => 'pl',
 	'Author' => 'Autor',
 	'Authors list' => 'Lista autorów',
 	'Page' => 'Strona',

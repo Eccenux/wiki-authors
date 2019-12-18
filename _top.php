@@ -44,6 +44,8 @@
 
 	// include i10n stuff along with L() language function
 	require_once './lang/_.php';
+
+	require_once './lib/array_column.php';
 	
 	// error handling
 	include './lib/fun_error.php';

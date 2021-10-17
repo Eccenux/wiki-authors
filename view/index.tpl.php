@@ -1,4 +1,4 @@
-<p><a href="<?=$strPageBaseURL?>?oldid=<?=$numOldId?>"><?=L('Page')?></a></p>
+<p><a href="<?=$strPageBaseURL?>?oldid=<?=$numOldId?>" target="_blank" rel="noopener"><?=L('Page')?></a></p>
 
 <table>
 	<thead>

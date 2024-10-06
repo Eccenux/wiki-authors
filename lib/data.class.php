@@ -71,7 +71,7 @@ class cMainData
 				AND rev.rev_minor_edit = 0
 				AND rev.rev_id <= $numOldId
 			GROUP BY rev.rev_actor
-			ORDER BY 2 DESC, 3 DESC, 1 ASC
+			ORDER BY total_len DESC, edits_num DESC, actor_id ASC
 		";
 		$arrRevAuthors = $this->pf_fetchAllSQL($strSQL);
 		$oTicks->pf_endTick('authors stats');

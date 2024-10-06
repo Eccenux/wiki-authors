@@ -1,5 +1,16 @@
 <p><a href="<?=$strPageBaseURL?>?oldid=<?=$numOldId?>" target="_blank" rel="noopener"><?=L('Page')?></a></p>
 
+<p><?=L('Authors:stats note')?></p>
+
+<?php if (!empty($arrAuthors)) { ?>
+<p><?=L('Authors list')?>: 
+<?php
+	$names = array_column($arrAuthors, 'user_name');
+	echo implode(', ', $names);
+?>.
+</p>
+<?php } ?>
+
 <table>
 	<thead>
 		<tr>
@@ -26,14 +37,3 @@
 		<?php } ?>
 	</tbody>
 </table>
-
-<p><?=L('Authors:stats note')?></p>
-
-<?php if (!empty($arrAuthors)) { ?>
-<p><?=L('Authors list')?>: 
-<?php
-	$names = array_column($arrAuthors, 'user_name');
-	echo implode(', ', $names);
-?>.
-</p>
-<?php } ?>

@@ -5,7 +5,8 @@
 		<tr>
 			<th><?=L('Author')?></th>
 			<th><?=L('Number of edits')?></th>
-			<th><?=L('Total length')?></th>
+			<th><?=L('Total bytes changed')?></th>
+			<th><?=L('Bytes changed')?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -13,13 +14,14 @@
 			<tr>
 				<td>
 					<?php if (!empty($rowStat['user_name'])) { ?>
-						<a href="<?=$strPageBaseURL?>User:<?=$rowStat['user_name']?>"><?=strtr($rowStat['user_name'],'_',' ')?></a>
+						<a href="<?=$strPageBaseURL?>User:<?=urlencode($rowStat['user_name'])?>"><?=htmlspecialchars( strtr($rowStat['user_name'],'_',' ') )?></a>
 					<?php } else { ?>
 						<i>?</i>
 					<?php } ?>
 				</td>
 				<td><?=$rowStat['edits_num']?></td>
 				<td><?=number_format($rowStat['total_len'], 0, '', ' ')?></td>
+				<td><?=$rowStat['bytes_changed']?></td>
 			</tr>
 		<?php } ?>
 	</tbody>

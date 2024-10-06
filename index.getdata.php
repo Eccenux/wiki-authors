@@ -16,7 +16,8 @@
 		(
 			'user_name' => str,
 			'edits_num' => int,
-			'total_len' => int (in bytes),
+			'total_len' => int (in bytes), // should contain a sum of bytes removed and added
+			'bytes_changed' => str (CSV of int), // list of bytes remove(-) and added(+)
 		)
 	)
 	\endcode

@@ -34,7 +34,7 @@ class cMainData
 		
 		@param [in] $numOldId A revision id of the page to be checked and also a cut-out revision for stats
 		
-		@return $arrAuthors an array of authors stats containing: user_name, edits_num, total_len
+		@return $arrAuthors an array of authors stats containing: user_name, edits_num, total_len, bytes_changed
 	*/
 	public function pf_getPageAuthors($numOldId)
 	{
@@ -59,11 +59,19 @@ class cMainData
 
 		// get stats
 		$oTicks->pf_insTick('authors stats');
-		$strSQL = "SELECT rev_actor as actor_id, count(rev_actor) as `edits_num`, sum(rev_len) as `total_len`
-			FROM revision_userindex
-			WHERE rev_page=$vPage AND rev_minor_edit=0 AND rev_id<=$numOldId
-			GROUP BY rev_actor
-			ORDER BY 2 desc, 3 desc
+		$strSQL = "SELECT
+				rev.rev_actor AS actor_id,
+				COUNT(rev.rev_actor) AS edits_num,
+				SUM(rev.rev_len - COALESCE(parent.rev_len, 0)) AS total_len
+				GROUP_CONCAT(rev.rev_len - COALESCE(parent.rev_len, 0)) AS bytes_changed
+			FROM revision_userindex rev
+			LEFT JOIN revision parent
+				ON rev.rev_parent_id = parent.rev_id
+			WHERE rev.rev_page = $vPage
+				AND rev.rev_minor_edit = 0
+				AND rev.rev_id <= $numOldId
+			GROUP BY rev.rev_actor
+			ORDER BY 2 desc, 3 desc, 1 asc
 		";
 		$arrRevAuthors = $this->pf_fetchAllSQL($strSQL);
 		$oTicks->pf_endTick('authors stats');
@@ -98,6 +106,7 @@ class cMainData
 				'user_name' => $actor_name,
 				'edits_num' => $arrRevAuthors[$i]['edits_num'],
 				'total_len' => $arrRevAuthors[$i]['total_len'],
+				'bytes_changed' => $arrRevAuthors[$i]['bytes_changed'],
 			);
 			$arrAuthors[] = $arr;
 		}

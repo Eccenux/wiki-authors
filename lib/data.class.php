@@ -62,7 +62,7 @@ class cMainData
 		$strSQL = "SELECT
 				rev.rev_actor AS actor_id,
 				COUNT(rev.rev_actor) AS edits_num,
-				SUM(rev.rev_len - COALESCE(parent.rev_len, 0)) AS total_len
+				SUM(rev.rev_len - COALESCE(parent.rev_len, 0)) AS total_len,
 				GROUP_CONCAT(rev.rev_len - COALESCE(parent.rev_len, 0)) AS bytes_changed
 			FROM revision_userindex rev
 			LEFT JOIN revision parent
@@ -71,7 +71,7 @@ class cMainData
 				AND rev.rev_minor_edit = 0
 				AND rev.rev_id <= $numOldId
 			GROUP BY rev.rev_actor
-			ORDER BY 2 desc, 3 desc, 1 asc
+			ORDER BY 2 DESC, 3 DESC, 1 ASC
 		";
 		$arrRevAuthors = $this->pf_fetchAllSQL($strSQL);
 		$oTicks->pf_endTick('authors stats');

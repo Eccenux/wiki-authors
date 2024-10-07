@@ -81,5 +81,6 @@ if (empty($strDieMessage))
 else
 {
 	echo $strDieMessage;
+	include("./view/form.tpl.php");
 }
 include('./view/_footer.tpl.php');

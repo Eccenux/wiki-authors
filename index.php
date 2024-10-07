@@ -21,7 +21,7 @@ set_time_limit(600);
 // Preformat some variables
 //
 $numOldId = intval(empty($_GET['oldid']) ? 0 : $_GET['oldid']);
-$fullPageName = !empty($_GET['page_name']) ? '' : $_GET['page_name'];
+$fullPageName = empty($_GET['page_name']) ? '' : $_GET['page_name'];
 
 $strPageTitle = L('Authors:title');
 $strDieMessage = '';

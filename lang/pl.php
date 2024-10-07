@@ -10,7 +10,7 @@ $arrLang = array(
 
 	'Full list of authors' => 'Lista wszystkich autorów',
 	'Show Authors' => 'Pokaż autorów',
-	'Information' => 'Information',
+	'Information' => 'Informacja',
 	
 	'Execution times' => 'Czasy wykonania',
 	

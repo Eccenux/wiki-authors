@@ -6,6 +6,8 @@ if (php_sapi_name() != "cli") {
 
 // Lib under test
 require_once './lib/TitleParser.php';
+// Syntax check
+require_once './lib/data.class.php';
 
 // Helper function to run a single test
 function runTest($testName, $expected, $actual)

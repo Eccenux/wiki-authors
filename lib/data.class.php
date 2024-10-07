@@ -1,6 +1,5 @@
 <?php
-// include an array selector class
-//require_once './lib/arrayselect.class.php';
+require_once './lib/TitleParser.php';
 
 /*!
 	@brief Data manipulation class.

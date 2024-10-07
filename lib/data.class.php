@@ -9,6 +9,7 @@ class cMainData
 {
 	private $db;	//!< PDO object
 	private $dbSt;	//!< Last PDO Statement
+	private $titleParser;	//!< TitleParser
 
 	/*!
 		@brief Construct
@@ -26,7 +27,47 @@ class cMainData
 			array()
 			// TS usues latin1_bin...
 			//array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
-		); 
+		);
+
+		$this->titleParser = new TitleParser();
+	}
+
+	/*!
+		@brief Get the last revision ID for an article based on its full page name (namespace:title)
+
+		@param [in] $fullPageName The full name of the article, including namespace (e.g., "Szablon:Nux").
+		@return The last revision ID or false on failure.
+	*/
+	public function pf_getLastOid($fullPageName)
+	{
+		// Parse the namespace and title from the full page name
+		$parsedData = $this->titleParser->parseNamespaceAndTitle($fullPageName);
+		if (is_string($parsedData)) {
+			$namespaceNumber = 0;
+			$pageTitle = $fullPageName;
+		} else {
+			$namespaceNumber = $parsedData['namespace'];
+			$pageTitle = $parsedData['title'];
+		}
+
+		// Prepare SQL query to fetch the last revision ID
+		$sql = "
+			SELECT page_latest
+			FROM page
+			WHERE page_title = :title
+			AND page_namespace = :namespace
+			LIMIT 1";
+
+		$this->dbSt = $this->db->prepare($sql);
+		$this->dbSt->bindValue(':title', $pageTitle, PDO::PARAM_STR);
+		$this->dbSt->bindValue(':namespace', $namespaceNumber, PDO::PARAM_INT);
+
+		// Execute the query and return the last revision ID
+		if ($this->dbSt->execute()) {
+			return $this->dbSt->fetchColumn(); // Fetch the latest revision ID
+		}
+
+		return false; // Return false on failure
 	}
 
 	/*!

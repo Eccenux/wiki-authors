@@ -3,7 +3,7 @@
 <p><?=L('Authors:stats note')?></p>
 
 <?php if (!empty($arrAuthors)) { ?>
-<p><?=L('Authors list')?>: 
+<p><strong><?=L('Authors list')?></strong>: 
 <?php
 	$names = array_column($arrAuthors, 'user_name');
 	echo implode(', ', $names);

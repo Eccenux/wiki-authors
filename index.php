@@ -8,7 +8,7 @@
 	
 	@todo Wybór bazy!
 	@todo Wybór języka
-	@todo Możliwość wpisania tytułu strony zamiast oldid
+	✅Możliwość wpisania tytułu strony zamiast oldid
 */
 define('NO_HACKING', 1);
 //header("Content-type: text/plain; charset=utf-8");
@@ -21,6 +21,8 @@ set_time_limit(600);
 // Preformat some variables
 //
 $numOldId = intval(empty($_GET['oldid']) ? 0 : $_GET['oldid']);
+$fullPageName = !empty($_GET['page_name']) ? '' : $_GET['page_name'];
+
 $strPageTitle = L('Authors:title');
 $strDieMessage = '';
 $strTplFile = 'index';
@@ -28,7 +30,15 @@ $strPageBaseURL = $arrSrcDb['page_base_url'];
 
 if (empty($numOldId))
 {
-	$strDieMessage = L('Authors:oldid needed error');
+	if (empty($fullPageName)) {
+		$strDieMessage = L('Authors:oldid needed error');
+	}
+	else {
+		$numOldId = $oData->pf_getLastOid($fullPageName);
+		if (!is_numeric($numOldId) || $numOldId <= 0) {
+			$strDieMessage = L('Authors:oldid needed error');
+		}
+	}
 }
 
 //
@@ -73,4 +83,3 @@ else
 	echo $strDieMessage;
 }
 include('./view/_footer.tpl.php');
-?>

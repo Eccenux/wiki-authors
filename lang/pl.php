@@ -7,6 +7,10 @@ $arrLang = array(
 	'Number of edits' => 'Liczba edycji',
 	'Total bytes changed' => 'Suma zmienionych bajtów',
 	'Bytes changed' => 'Lista zmienionych bajtów',
+
+	'Full list of authors' => 'Lista wszystkich autorów',
+	'Show Authors' => 'Pokaż autorów',
+	'Information' => 'Information',
 	
 	'Execution times' => 'Czasy wykonania',
 	

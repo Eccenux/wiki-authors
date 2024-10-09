@@ -43,7 +43,7 @@ class cMainData
 		$parsedData = $this->titleParser->parseNamespaceAndTitle($fullPageName);
 		if (is_string($parsedData)) {
 			$namespaceNumber = 0;
-			$pageTitle = $fullPageName;
+			$pageTitle = $parsedData;
 		} else {
 			$namespaceNumber = $parsedData['namespace'];
 			$pageTitle = $parsedData['title'];

@@ -31,11 +31,11 @@ class TitleParser
 		$parts = explode(':', $fullPageName, 2);
 		if (count($parts) < 2) {
 			// No namespace part found
-			return $fullPageName;
+			return $this->formatTitle($fullPageName);
 		}
 
 		$namespaceName = $parts[0]; // Namespace part
-		$pageTitle = str_replace(' ', '_', $parts[1]); // Title part with spaces replaced by underscores
+		$pageTitle = $this->formatTitle($parts[1]);
 
 		// Lookup the namespace ID from the associative map
 		if (array_key_exists($namespaceName, $this->namespaceMap)) {
@@ -47,6 +47,19 @@ class TitleParser
 
 		// Namespace not found
 		return $fullPageName;
+	}
+
+	/*!
+		@brief Format title for DB ops.
+		
+		@param [in] $rawTitle Raw title provided by user (no namespace).
+		@return Formatted for DB lookup (not escaped, just formatted).
+	*/
+	private function formatTitle($rawTitle)
+	{
+		$pageTitle = str_replace(' ', '_', $rawTitle); // Title part with spaces replaced by underscores
+
+		return $pageTitle;
 	}
 
 	/*!

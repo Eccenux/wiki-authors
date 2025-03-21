@@ -1,9 +1,14 @@
 {
-    "name" : "toolforge-authors",
-    "title" : "Autorzy artykułu",
-    "description" : "Podaje listę autorów artykułu wg oldid (id wersji). Używany przy cytowaniu Polskiej Wikipedii. Przykład dla hasła Astronomia: https://authors.toolforge.org/?oldid=6765334",
-    "url" : "https://authors.toolforge.org/",
-    "keywords" : "articles, wikipedia, plwiki",
-    "author" : "Maciej Nux Jaros",
-    "repository" : "https://github.com/Eccenux/wiki-authors"
+    "name": "toolforge-authors",
+    "title": "Autorzy artykułu",
+    "description": "Podaje listę autorów artykułu wg oldid (id wersji). Używany przy cytowaniu Polskiej Wikipedii. Przykład dla hasła Astronomia: https://authors.toolforge.org/?oldid=6765334",
+    "url": "https://authors.toolforge.org/",
+    "keywords": "articles, wikipedia, plwiki",
+    "author": "Maciej Nux Jaros",
+    "repository": "https://github.com/Eccenux/wiki-authors",
+    "feedback_url": "https://pl.wikipedia.org/wiki/Dyskusja_wikipedysty:Nux",
+    "bugtracker_url": "https://github.com/Eccenux/wiki-authors/issues",
+    "available_ui_languages": ["en", "pl"],
+    "for_wikis": "pl.wikipedia.org",
+    "tool_type": "web app"
 }

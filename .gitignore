@@ -4,3 +4,5 @@
 *.lnk
 /.my.script.cnf
 /.err.log
+/_temp
+/_adm
